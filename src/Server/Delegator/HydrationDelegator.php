@@ -28,10 +28,12 @@ class HydrationDelegator implements DelegatorFactoryInterface
             throw new \InvalidArgumentException("Can't use zoom with a non-doctrine hydrator");
         }
 
+        $collectionExtract = $serviceLocator->getServiceLocator()->get('ZF\\Apigility\\Doctrine\\Server\\Hydrator\\Strategy\\CollectionExtract');
+
         foreach ($this->zoom as $collectionName) {
             if ($hydrator->getExtractService()->hasStrategy($collectionName)) {
                 $hydrator->getExtractService()->removeStrategy($collectionName);
-                $hydrator->getExtractService()->addStrategy($collectionName, new CollectionExtract());
+                $hydrator->getExtractService()->addStrategy($collectionName, $collectionExtract);
             }
         }
 
