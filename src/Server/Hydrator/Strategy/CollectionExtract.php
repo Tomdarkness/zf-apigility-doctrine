@@ -21,6 +21,10 @@ class CollectionExtract extends AbstractCollectionStrategy
 
     public function extract($value)
     {
+        if (!$value) {
+            return;
+        }
+
         if (!$value->isInitialized()) {
             return;
         }
