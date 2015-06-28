@@ -20,6 +20,8 @@ use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\StaticEventManager;
+use Zend\ServiceManager\ServiceManager;
+use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\Hydrator\HydratorAwareInterface;
 use Zend\Stdlib\Hydrator\HydratorInterface;
@@ -33,6 +35,7 @@ use ReflectionClass;
  */
 class DoctrineResource extends AbstractResourceListener implements
     ObjectManagerAwareInterface,
+    ServiceManagerAwareInterface,
     EventManagerAwareInterface,
     HydratorAwareInterface
 {
@@ -119,9 +122,34 @@ class DoctrineResource extends AbstractResourceListener implements
     protected $eventIdentifier = array('ZF\Apigility\Doctrine\DoctrineResource');
 
     /**
+     * @var ServiceManager
+     */
+    protected $serviceManager;
+
+    /**
      * @var array|QueryProviderInterface
      */
     protected $queryProviders;
+
+    /**
+     * @param ServiceManager $serviceManager
+     *
+     * @return $this
+     */
+    public function setServiceManager(ServiceManager $serviceManager)
+    {
+        $this->serviceManager = $serviceManager;
+
+        return $this;
+    }
+
+    /**
+     * @return ServiceManager
+     */
+    public function getServiceManager()
+    {
+        return $this->serviceManager;
+    }
 
     /**
      * @param array|\ZF\Apigility\Doctrine\Server\Query\Provider\QueryProviderInterface[]

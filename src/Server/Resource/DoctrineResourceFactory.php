@@ -140,6 +140,7 @@ class DoctrineResourceFactory implements AbstractFactoryInterface
         $listener->setHydrator($hydrator);
         $listener->setQueryProviders($queryProviders);
         $listener->setQueryCreateFilter($queryCreateFilter);
+        $listener->setServiceManager($serviceLocator);
         $listener->setEntityIdentifierName($restConfig['entity_identifier_name']);
         $listener->setRouteIdentifierName($restConfig['route_identifier_name']);
         if (count($configuredListeners)) {
